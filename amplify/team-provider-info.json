@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cvwotaskapp-dev-230142-authRole",
+      "UnauthRoleArn": "arn:aws:iam::476471522908:role/amplify-cvwotaskapp-dev-230142-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::476471522908:role/amplify-cvwotaskapp-dev-230142-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-cvwotaskapp-dev-230142-deployment",
+      "UnauthRoleName": "amplify-cvwotaskapp-dev-230142-unauthRole",
+      "StackName": "amplify-cvwotaskapp-dev-230142",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:476471522908:stack/amplify-cvwotaskapp-dev-230142/e2b15070-7a01-11ec-b340-02f1730b1a9a",
+      "AmplifyAppId": "d2dh4xf8yr9uj8"
+    },
+    "categories": {
+      "auth": {
+        "cvwotaskapp0c8fbf92": {}
+      }
+    }
+  }
+}
