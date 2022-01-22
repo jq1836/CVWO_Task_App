@@ -7,6 +7,10 @@ Task manager app (Todo list) made in typescript (React), with an AWS backend (Am
 
 ##Features:
 
-1. Login and authentication capabilities.
+1. Login/Logout and authentication capabilities.
 2. CRUD for tasks.
 3. Tag filter system.
+
+###Test Account:
+Username: Test1
+Password: password123
