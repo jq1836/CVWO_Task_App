@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { LocalizationProvider, DatePicker } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import TextField from '@mui/material/TextField';
 import { TaskCardStyle } from '../Styling';
 
 function TaskCard(props: any) {
@@ -23,7 +26,11 @@ function TaskCard(props: any) {
     const handleChange = (event: any) => {
         const name = event.target.name;
         const value = event.target.value;
-        setInput((values: any) => ({ ...values, [name]: value }));
+        setInput((values: any) => ({...values, [name]: value}));
+    };
+
+    const handleDateChange = (value: any) => {
+        setInput((values: any) => ({...values, ["deadline"]: value}));
     };
 
     const handleSubmit = () => {
@@ -34,7 +41,6 @@ function TaskCard(props: any) {
             deadline: input.deadline,
             description: input.description,
         }
-
         props.handleEdit(newTask);
         goToRest();
     };
@@ -42,53 +48,46 @@ function TaskCard(props: any) {
     if (editMode) {
         return (
             <Card key={ input.id } style={ TaskCardStyle }>
-                <Card.Body style={{ margin: "10px auto"}}>
-                    <Card.Text>
-                        <label>
-                            Task:
-                            <input
-                                type="text"
-                                name="taskName"
-                                value={ input.taskName }
-                                style={{ height: "30px"}}
-                                onChange={ handleChange } />
-                        </label>
-                    </Card.Text>
-                    <Card.Text>
-                        <label>
-                            Deadline:
-                            <input
-                                type="text"
-                                name="deadline"
+                <Card.Body style={{ margin: "10px auto" }}>
+                    <Card.Body style={{ margin:"10px" }}>
+                        <TextField
+                            type="text"
+                            label="Task:"
+                            name="taskName"
+                            value={ input.taskName }
+                            onChange={ handleChange }/>
+                    </Card.Body>
+                    <Card.Body style={{ margin:"10px" }}>
+                        <TextField
+                            type="text"
+                            label="Description:"
+                            name="description"
+                            value={ input.description }
+                            onChange={ handleChange }/>
+                    </Card.Body>
+                    <Card.Body style={{ margin:"10px" }}>
+                        <LocalizationProvider dateAdapter={ AdapterDateFns }>
+                            <DatePicker
+                                label="Deadline"
                                 value={ input.deadline }
-                                style={{ height: "30px"}}
-                                onChange={ handleChange } />
-                        </label>
-                    </Card.Text>
-                    <Card.Text>
-                        <label>
-                            Description:
-                            <input
-                                type="text"
-                                name="description"
-                                value={ input.description }
-                                style={{ height: "30px"}}
-                                onChange={ handleChange }/>
-                        </label>
-                    </Card.Text>
+                                onChange={ handleDateChange }
+                                renderInput={ (params) => <TextField { ...params } /> }
+                            />
+                        </LocalizationProvider>
+                    </Card.Body>
                     <Card.Footer>
-                        <text> Tag: </text>
+                        <text> Tag:</text>
                         <select
                             name="tag"
                             value={ input.tag }
-                            style={{ width: "150px", height: "30px"}}
+                            style={{ width: "150px", height: "30px" }}
                             onChange={ handleChange }>
                             <option value="Others"> Others </option>
                             <option value="Study"> Study </option>
                             <option value="Work"> Work </option>
                             <option value="Leisure"> Leisure </option>
                         </select>
-                        <Button style={{ width: "100px", height: "30px"}} onClick={ handleSubmit }> Confirm </Button>
+                        <Button style={{ width: "100px", height: "30px" }} onClick={ handleSubmit }> Confirm </Button>
                     </Card.Footer>
                 </Card.Body>
             </Card>
@@ -96,17 +95,17 @@ function TaskCard(props: any) {
     } else {
         return (
             <Card key={ input.id } style={ TaskCardStyle }>
-                <Card.Body>
+                <Card.Body style={{ margin:"10px" }}>
                     <Card.Text> Task: { props.task.taskName } </Card.Text>
                     <Card.Text> Tag: { props.task.tag } </Card.Text>
-                    <Card.Text> Deadline: { props.task.deadline } </Card.Text>
-                    <Card.Text style={{ width: "100px", height: "30px"}}> Description: { props.task.description } </Card.Text>
-                    <Button style={{ width: "100px", height: "30px"}} onClick={ props.handleDelete }> Delete </Button>
-                    <Button style={{ width: "100px", height: "30px"}} onClick={ goToEdit }> Edit </Button>
+                    <Card.Text> Deadline: { props.task.deadline.slice(0, 10) } </Card.Text>
+                    <Card.Text> Description: { props.task.description } </Card.Text>
+                    <Button onClick={ goToEdit } style={{ width: "120px", height: "30px" }}> Edit </Button>
+                    <Button onClick={ props.handleDelete } style={{ width: "120px", height: "30px" }}> Delete </Button>
                 </Card.Body>
             </Card>
         );
     }
-};
+}
 
 export default TaskCard;

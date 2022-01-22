@@ -62,10 +62,10 @@ function TaskBoard(props: any) {
     }
 
     const filterTag = () => {
-        if (tagFilter == "All") {
+        if (tagFilter === "All") {
             return list;
         } else {
-            return list.filter((task: any) => task.tag == tagFilter);
+            return list.filter((task: any) => task.tag === tagFilter);
         }
     }
 
@@ -74,7 +74,7 @@ function TaskBoard(props: any) {
     }
 
     return (
-        <div>
+        <div style={{ backgroundColor: "#1A1A1A", minHeight: "1000px" }}>
             <div style={{ backgroundColor: "#FFFFFF", width: "1000px"}}>
                 <text style={{ fontSize: 70}}> Welcome back, { props.user.username }! </text>
             </div>
@@ -89,19 +89,19 @@ function TaskBoard(props: any) {
                     style={{ width: "100px", height: "50px" }}>
                     Add new task
                 </Button>
+                <select
+                    name="tag"
+                    value={ tagFilter }
+                    onChange={ changeTag }
+                    style={{ width: "200px", height: "50px" }}>
+                    <option value="All"> Filter: All </option>
+                    <option value="Others"> Filter: Others </option>
+                    <option value="Study"> Filter: Study </option>
+                    <option value="Work"> Filter: Work </option>
+                    <option value="Leisure"> Filter: Leisure </option>
+                </select>
             </div>
-            <select
-                name="tag"
-                value={ tagFilter }
-                onChange={ changeTag }
-                style={{ width: "200px", height: "30px" }}>
-                <option value="All"> All </option>
-                <option value="Others"> Others </option>
-                <option value="Study"> Study </option>
-                <option value="Work"> Work </option>
-                <option value="Leisure"> Leisure </option>
-            </select>
-            <div style={{ width: "1000px", display: "flex", flexWrap: "wrap" }}>
+            <div style={{ width: "1000px", display: "flex", flexWrap: "wrap", border: "1px solid #AAAAAA" }}>
                 { filterTag().map((item: any) => (
                     <TaskCard
                         task={ item }
