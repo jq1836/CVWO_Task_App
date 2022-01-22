@@ -8,13 +8,12 @@ import TaskBoard from "./components/TaskBoard";
 
 Amplify.configure(awsExports);
 
-const App: React.FC = () => {
+function App() {
   return (
       <Authenticator>
         {({ signOut, user }) => (
-            <div>
-              <TaskBoard />
-              <Button onClick={ signOut }> Sign Out </Button>
+            <div style={{ backgroundColor: "#1A1A1A" }}>
+              <TaskBoard handleSignOut={ signOut } user={ user }/>
             </div>
         )}
       </Authenticator>

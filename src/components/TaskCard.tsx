@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
+import { TaskCardStyle } from '../Styling';
 
-interface TaskCardProps {
-    task: any;
-    handleDelete: any;
-    handleEdit: any;
-}
-
-const TaskCard: React.FC<TaskCardProps> = (props) => {
+function TaskCard(props: any) {
     const [editMode, setEditMode] = useState(false);
     const [input, setInput] = useState({
         id: props.task.id,
@@ -46,53 +41,68 @@ const TaskCard: React.FC<TaskCardProps> = (props) => {
 
     if (editMode) {
         return (
-            <Card key={ input.id }>
-                <Card.Body>
-                    <div>
+            <Card key={ input.id } style={ TaskCardStyle }>
+                <Card.Body style={{ margin: "10px auto"}}>
+                    <Card.Text>
                         <label>
-                            Task: <input type="text" name="taskName" value={ input.taskName } onChange={ handleChange } />
+                            Task:
+                            <input
+                                type="text"
+                                name="taskName"
+                                value={ input.taskName }
+                                style={{ height: "30px"}}
+                                onChange={ handleChange } />
                         </label>
-                    </div>
-                    <div>
+                    </Card.Text>
+                    <Card.Text>
                         <label>
-                            Deadline: <input type="text" name="deadline" value={ input.deadline } onChange={ handleChange } />
+                            Deadline:
+                            <input
+                                type="text"
+                                name="deadline"
+                                value={ input.deadline }
+                                style={{ height: "30px"}}
+                                onChange={ handleChange } />
                         </label>
-                    </div>
-                    <div>
+                    </Card.Text>
+                    <Card.Text>
                         <label>
-                            Description: <input type="text" name="description" value={ input.description } onChange={ handleChange }/>
+                            Description:
+                            <input
+                                type="text"
+                                name="description"
+                                value={ input.description }
+                                style={{ height: "30px"}}
+                                onChange={ handleChange }/>
                         </label>
-                    </div>
-                    <div>
-                        <select name="tag" value={ input.tag } onChange={ handleChange }>
+                    </Card.Text>
+                    <Card.Footer>
+                        <text> Tag: </text>
+                        <select
+                            name="tag"
+                            value={ input.tag }
+                            style={{ width: "150px", height: "30px"}}
+                            onChange={ handleChange }>
                             <option value="Others"> Others </option>
                             <option value="Study"> Study </option>
                             <option value="Work"> Work </option>
                             <option value="Leisure"> Leisure </option>
                         </select>
-                    </div>
-                    <Button onClick={ handleSubmit }> Confirm </Button>
+                        <Button style={{ width: "100px", height: "30px"}} onClick={ handleSubmit }> Confirm </Button>
+                    </Card.Footer>
                 </Card.Body>
             </Card>
         );
     } else {
         return (
-            <Card key={ input.id }>
-                <Card.Header>
-                    <h1> Task: { props.task.taskName } </h1>
-                </Card.Header>
+            <Card key={ input.id } style={ TaskCardStyle }>
                 <Card.Body>
-                    <Card.Title>
-                        <h2> Tag: { props.task.tag } </h2>
-                    </Card.Title>
-                    <Card.Text>
-                        <div>
-                            <h4> Deadline: { props.task.deadline } </h4>
-                            <h4> Description: { props.task.description } </h4>
-                        </div>
-                    </Card.Text>
-                    <Button onClick={ props.handleDelete }> Delete </Button>
-                    <Button onClick={ goToEdit }> Edit </Button>
+                    <Card.Text> Task: { props.task.taskName } </Card.Text>
+                    <Card.Text> Tag: { props.task.tag } </Card.Text>
+                    <Card.Text> Deadline: { props.task.deadline } </Card.Text>
+                    <Card.Text style={{ width: "100px", height: "30px"}}> Description: { props.task.description } </Card.Text>
+                    <Button style={{ width: "100px", height: "30px"}} onClick={ props.handleDelete }> Delete </Button>
+                    <Button style={{ width: "100px", height: "30px"}} onClick={ goToEdit }> Edit </Button>
                 </Card.Body>
             </Card>
         );

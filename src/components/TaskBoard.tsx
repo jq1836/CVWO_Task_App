@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from "aws-amplify";
 import { listTasks } from "../graphql/queries";
-import {createTask, deleteTask, updateTask} from "../graphql/mutations";
+import { createTask, deleteTask, updateTask } from "../graphql/mutations";
 import { Button } from "react-bootstrap";
 import TaskCard from "./TaskCard";
 
-const TaskBoard: React.FC = () => {
+function TaskBoard(props: any) {
     const [list, setList] = useState([]);
     const [tagFilter, setTag] = useState('All');
 
@@ -75,15 +75,33 @@ const TaskBoard: React.FC = () => {
 
     return (
         <div>
-            <Button onClick={ addTask }> + </Button>
-            <select name="tag" value={ tagFilter } onChange={ changeTag }>
+            <div style={{ backgroundColor: "#FFFFFF", width: "1000px"}}>
+                <text style={{ fontSize: 70}}> Welcome back, { props.user.username }! </text>
+            </div>
+            <div>
+                <Button
+                    onClick={ props.handleSignOut }
+                    style={{ width: "100px", height: "50px" }}>
+                    Sign Out
+                </Button>
+                <Button
+                    onClick={ addTask }
+                    style={{ width: "100px", height: "50px" }}>
+                    Add new task
+                </Button>
+            </div>
+            <select
+                name="tag"
+                value={ tagFilter }
+                onChange={ changeTag }
+                style={{ width: "200px", height: "30px" }}>
                 <option value="All"> All </option>
                 <option value="Others"> Others </option>
                 <option value="Study"> Study </option>
                 <option value="Work"> Work </option>
                 <option value="Leisure"> Leisure </option>
             </select>
-            <div>
+            <div style={{ width: "1000px", display: "flex", flexWrap: "wrap" }}>
                 { filterTag().map((item: any) => (
                     <TaskCard
                         task={ item }
